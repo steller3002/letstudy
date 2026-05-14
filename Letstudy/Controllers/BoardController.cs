@@ -25,7 +25,7 @@ public class BoardController(
     // Создание новой доски для репетитора
     // POST /api/boards
     [HttpPost("")]
-    [Authorize(Roles = "Tutor")]
+    [Authorize(Roles = Role.Tutor)]
     public async Task<IActionResult> CreateBoardAsync([FromBody] CreateBoardRequest request)
     {
         var userId = User.GetUserId();
@@ -45,7 +45,7 @@ public class BoardController(
     // Получение всех досок репетитора
     // GET api/boards
     [HttpGet("")]
-    [Authorize(Roles = "Tutor")]
+    [Authorize(Roles = Role.Tutor)]
     public async Task<IActionResult> GetBoardsAsync()
     {
         var userId = User.GetUserId();
@@ -62,7 +62,7 @@ public class BoardController(
     // Получение конкретной доски по Id
     // GET api/boards{boardId}
     [HttpGet("{boardId:guid}")]
-    [Authorize(Roles = "Tutor, Student")]
+    [Authorize(Roles = $"{Role.Tutor}, {Role.Student}")]
     public async Task<IActionResult> GetBoardAsync(Guid boardId)
     {
         var userId = User.GetUserId();
@@ -84,7 +84,7 @@ public class BoardController(
     // Генерация ключа доступа для доски
     // POST api/boards/{boardId}/access-key")
     [HttpPost("{boardId:guid}/access-key")]
-    [Authorize(Roles = "Tutor")]
+    [Authorize(Roles = Role.Tutor)]
     public async Task<IActionResult> GenerateAccessKeyAsync(Guid boardId)
     {
         var userId = User.GetUserId();

@@ -7,7 +7,7 @@ namespace Letstudy.Models;
 public class User
 {
     [Key]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; init; } = Guid.NewGuid();
     [Required, EmailAddress]
     public required string Email { get; set; }
     [Required]

@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Letstudy.Core;
+using Letstudy.Identity;
 using Letstudy.Models;
 using Letstudy.Requests;
 using Letstudy.Services;
@@ -17,7 +18,7 @@ public class StudentController(AccessKeyService keyService, StudentService stude
     // Подписка ученика на доску
     // POST api/students/boards
     [HttpPost("boards")]
-    [Authorize(Roles = "Student")]
+    [Authorize(Roles = Role.Student)]
     public async Task<IActionResult> SubscribeToBoardAsync([FromBody] SubscribeToBoardRequest request)
     {
         var nameIdentifier = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -50,7 +51,7 @@ public class StudentController(AccessKeyService keyService, StudentService stude
     // Получение всех досок ученика
     // GET api/students/boards
     [HttpGet("boards")]
-    [Authorize(Roles = "Student")]
+    [Authorize(Roles = Role.Student)]
     public async Task<IActionResult> GetBoardsAsync()
     {
         var nameIdentifier = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

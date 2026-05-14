@@ -18,6 +18,7 @@ public class TutorService(AppDbContext context)
             PasswordHash = hashedPassword
         };
         await context.Tutors.AddAsync(tutor);
+        await context.SaveChangesAsync();
     }
 
     public async Task<Tutor?> GetByIdAsync(Guid id) => await context.Tutors.FindAsync(id);

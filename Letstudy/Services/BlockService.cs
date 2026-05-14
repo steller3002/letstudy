@@ -15,7 +15,7 @@ public class BlockService(AppDbContext context)
     public async Task<List<Block>> GetAllBlocksAsync() => await context.Blocks.ToListAsync();
     
     public async Task<List<Block>> GetModuleBlocksAsync(Guid moduleId) => await context.Blocks
-        .Where(b => b.ModuleId == moduleId)
+        .Where(b => b.LectureModuleId == moduleId)
         .OrderBy(b => b.Order)
         .ToListAsync();
 
@@ -24,12 +24,12 @@ public class BlockService(AppDbContext context)
         var block = await context.Blocks.FindAsync(blockId);
         if (block == null) return;
         
-        var module = await context.Modules
-            .Include(m => m.Blocks)
+        var module = await context.LectureModules
+            .Include(m => m.Content)
             .FirstOrDefaultAsync(m => m.Id == moduleId);
         if (module == null) return;
         
-        ShiftBlocks(newOrder, block.Order, module.Blocks);
+        ShiftBlocks(newOrder, block.Order, module.Content);
         block.Order = newOrder;
 
         await context.SaveChangesAsync();

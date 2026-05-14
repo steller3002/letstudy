@@ -1,24 +1,22 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
 namespace Letstudy.Models;
 
-[Table("blocks")]
+[Table(("blocks"))]
 public class Block
 {
     [Key]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; init; } = Guid.NewGuid();
     [Required]
     public required int Order { get; set; }
-    public required BlockContent Content { get; set; }
-    public required Guid ModuleId { get; set; }
-    public Module? Module { get; set; }
+    [Required]
+    public required BlockType Type { get; init; }
+    [Required]
+    public string ContentJson { get; init; } = "{}";
+    
+    public required Guid LectureModuleId { get; init; }
+    public LectureModule?  LectureModule { get; set; }
 }
 
-public class BlockContent
-{
-    public string? Text { get; set; }
-    public string? ImageUrl { get; set; }
-    
-}
+public enum BlockType { Text, Image }

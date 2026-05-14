@@ -8,14 +8,15 @@ namespace Letstudy.Models;
 public class AccessKey
 {
     [Key]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; init; } = Guid.NewGuid();
     public bool IsActivated { get; private set; }
     [Required]
-    public required string Value { get; set; }
-    public required Guid BoardId { get; set; }
+    [MaxLength(150)]
+    public required string Value { get; init; }
+    public required Guid BoardId { get; init; }
     [JsonIgnore]
     public Board? Board { get; set; }
-    public Guid? StudentId { get; set; }
+    public Guid? StudentId { get; init; }
     public Student? Student { get; set; }
 
     public void Activate() => IsActivated = true;

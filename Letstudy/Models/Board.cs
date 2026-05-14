@@ -9,7 +9,7 @@ namespace Letstudy.Models;
 public class Board
 {
     [Key]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; init; } = Guid.NewGuid();
     [Required]
     public required string Title { get; set; }
     public List<Module> Modules { get; set; } = [];

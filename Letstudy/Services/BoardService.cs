@@ -57,18 +57,4 @@ public class BoardService(AppDbContext context)
 
         return accessKey;
     }
-
-    public async Task<List<ExerciseBlock>> GetBoardExercisesAsync(Guid boardId)
-    {
-        var board = await context.Boards
-            .Include(b => b.Modules)
-            .ThenInclude(module => module.Blocks)
-            .FirstOrDefaultAsync(b => b.Id == boardId);
-        if (board == null)
-        {
-            throw new Exception("Board not found");
-        }
-
-        throw new NotImplementedException();
-    }
 }

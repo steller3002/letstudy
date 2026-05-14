@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Letstudy.Core;
+using Letstudy.Identity;
 using Letstudy.Models;
 using Letstudy.Requests;
 using Letstudy.Services;
@@ -11,7 +12,7 @@ namespace Letstudy.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Tutor")]
+[Authorize(Roles = Role.Tutor)]
 public class TutorController() : ControllerBase
 {
     
